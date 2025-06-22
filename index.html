@@ -496,6 +496,14 @@
                 <img src="https://raw.githubusercontent.com/Suno2036/Il.Al/main/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF.svg" alt="Логотип"
                      class="w-40 sm:w-48 md:w-56 lg:w-64 h-auto mx-auto mt-4 /* Уменьшил ширину и добавил отступ сверху */" 
                      onerror="this.alt='Логотип не загрузился'; this.src='https://placehold.co/256x128/FFFFFF/333333?text=Логотип';">
+                
+                <!-- Добавлена стрелка прокрутки -->
+                <div id="scroll-indicator" class="mt-4 text-FF69B4 opacity-0 transition-opacity duration-1000 ease-out" style="transition-delay: 0.5s;">
+                    <i class="fas fa-chevron-down animate-bounce text-2xl"></i>
+                    <p class="font-raleway text-sm font-semibold mt-1">Листайте вниз</p>
+                </div>
+                <!-- Конец стрелки прокрутки -->
+
             </div>
         </div>
     </section>
@@ -877,9 +885,10 @@
         const largeHeartDate = document.getElementById('large-heart-date'); // Получаем элемент даты
         const mainAnimatedLogo = document.getElementById('main-animated-logo'); // Получаем элемент с логотипом
         const mainCoverContent = document.querySelector('#cover .main-cover-content');
+        const scrollIndicator = document.getElementById('scroll-indicator'); // Получаем элемент индикатора прокрутки
 
         // Проверяем, что все необходимые элементы существуют
-        if (!(waltzOverlay && dancerIlya && dancerAlina && largePulsingHeartContainer && largeHeartDate && mainAnimatedLogo && mainCoverContent)) {
+        if (!(waltzOverlay && dancerIlya && dancerAlina && largePulsingHeartContainer && largeHeartDate && mainAnimatedLogo && mainCoverContent && scrollIndicator)) {
             console.warn("Один или несколько элементов для вступительной анимации не найдены. Пропуск анимации.");
             const musicPermissionModal = document.getElementById('music-permission-modal');
             if (musicPermissionModal) musicPermissionModal.classList.add('hidden');
@@ -887,6 +896,10 @@
             if (mainCoverContent) {
                 mainCoverContent.style.opacity = '1';
                 mainCoverContent.style.transform = 'translateY(0)';
+            }
+            // Если анимация пропущена, сразу показываем стрелку прокрутки
+            if (scrollIndicator) {
+                scrollIndicator.style.opacity = '1';
             }
             animateOnScroll();
             return; // Выходим из функции, если элементы не найдены
@@ -909,6 +922,11 @@
             // Показать контейнер большого сердца и запустить его анимацию появления
             largePulsingHeartContainer.style.display = 'flex';
             largePulsingHeartContainer.style.opacity = '1'; 
+            
+            // Показать стрелку прокрутки после появления основного контента
+            if (scrollIndicator) {
+                scrollIndicator.style.opacity = '1';
+            }
 
             // Через 2 секунды (после появления большого сердца):
             setTimeout(() => {
@@ -999,10 +1017,13 @@
         const localMusicIcon = document.getElementById('music-icon');
         const mainCoverContent = document.querySelector('#cover .main-cover-content');
         const waltzOverlay = document.getElementById('waltz-overlay');
+        const scrollIndicator = document.getElementById('scroll-indicator'); // Получаем элемент индикатора прокрутки
 
         // Изначально скрыть основное содержимое обложки и оверлей вальса
         if (mainCoverContent) mainCoverContent.style.opacity = '0';
         if (waltzOverlay) waltzOverlay.classList.add('hidden'); // Убедиться, что он скрыт изначально
+        // Изначально скрыть стрелку прокрутки
+        if (scrollIndicator) scrollIndicator.style.opacity = '0';
 
         generateCalendar(2025, 7);
         initYandexMap();
@@ -1035,6 +1056,10 @@
             if (mainCoverContent) {
                 mainCoverContent.style.opacity = '1'; // Сразу показать основное содержимое
                 mainCoverContent.style.transform = 'translateY(0)'; // Убедиться, что оно в конечном положении
+            }
+            // Если анимация пропущена, сразу показываем стрелку прокрутки
+            if (scrollIndicator) {
+                scrollIndicator.style.opacity = '1';
             }
             animateOnScroll(); // Также запустить анимации при прокрутке
         }
